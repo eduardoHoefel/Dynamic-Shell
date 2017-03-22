@@ -1,0 +1,54 @@
+{
+	"title": "Menu",
+	"options": [
+		{
+			"hotkey": 1,
+			"title": "Network",
+			"type": "MENU",
+			"menu": {
+				"title": "Menu -> Network",
+				"options": [
+					{
+						"hotkey": 1,
+						"title": "Set DNS",
+						"type": "FORM",
+						"form": "set_dns"
+					}, {
+						"hotkey": 0,
+						"title": "Return",
+						"type": "RETURN"
+					}
+				]
+			}
+		}, {
+			"hotkey": 2,
+			"title": "Agents",
+			"type": "MENU",
+			"menu": {
+				"title": "Menu -> Agents",
+				"options": [
+					{
+						"hotkey": 1,
+						"title": "Create Agent",
+						"type": "COMMAND",
+						"command": ""
+					}, {
+						"hotkey": 2,
+						"title": "Delete Agent",
+						"type": "COMMAND",
+						"command": ""
+					}, {
+						"hotkey": 0,
+						"title": "Return",
+						"type": "RETURN"
+					}
+				]
+			}
+		}, {
+			"hotkey": 3,
+			"title": "Ur-Quan Masters",
+			"type": "COMMAND",
+			"command": "uqm"
+		}
+	]
+}

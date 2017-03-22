@@ -1,0 +1,21 @@
+{
+	"set_dns": {
+		"title": "Menu -> Network -> Set DNS",
+		"inputs": [
+			{
+				"name": "Primary",
+				"type": "ip",
+				"required": 1
+			}, {
+				"name": "Secondary",
+				"type": "ip",
+				"required": 0
+			}
+		],
+		"fill_command": "get_dns",
+		"messages": [
+			"Success!",
+			"Not enough permissions!"
+		]
+	}
+}

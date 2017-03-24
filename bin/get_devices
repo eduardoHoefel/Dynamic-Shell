@@ -1,0 +1,4 @@
+#!/bin/bash
+ip link show | grep -v 'link/' | awk '{print $2}' | sed 's/:$//' | grep -v 'lo'
+
+exit 0

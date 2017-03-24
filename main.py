@@ -7,7 +7,7 @@
 from time import sleep
 import curses, os #curses is the interface for capturing key presses on the menu, os launches the files
 import windows_utils
-import input_utils
+import keys_utils
 from log import log
 
 action = 0
@@ -26,7 +26,7 @@ def main():
 def get_input():
     global action
     active_window = windows_utils.active_window
-    action = input_utils.get_input(active_window)
+    action = keys_utils.get_input(active_window)
 
 def update():
     global action

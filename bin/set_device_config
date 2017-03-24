@@ -1,0 +1,42 @@
+#!/bin/bash
+
+DEVICE=$1
+NAME=$2
+BOOTPROTO=$3
+ONBOOT=$4
+NETMASK=$5
+IPADDR=$6
+GATEWAY=$7
+
+DESTINY="/etc/sysconfig/network-scripts/ifcfg-"$1
+
+touch $DESTINY
+
+if ! [ -w $DESTINY ]; then
+	exit 1
+fi
+
+if [ "$ONBOOT" -eq "1" ]; then
+	ONBOOT='yes'
+else
+	ONBOOT='no'
+fi
+
+
+echo 'DEVICE='$DEVICE > $DESTINY
+echo 'TYPE=Ethernet' >> $DESTINY
+echo 'NAME="'$NAME'"' >> $DESTINY
+echo 'ONBOOT='$ONBOOT >> $DESTINY
+
+if [ "$BOOTPROTO" -eq "0" ]; then
+	BOOTPROTO='dhcp'
+else
+	BOOTPROTO='static'
+	echo 'NETMASK='$NETMASK >> $DESTINY
+	echo 'IPADDR='$IPADDR >> $DESTINY
+	echo 'GATEWAY='$GATEWAY >> $DESTINY
+fi
+
+echo 'BOOTPROTO='$BOOTPROTO >> $DESTINY
+
+exit 0

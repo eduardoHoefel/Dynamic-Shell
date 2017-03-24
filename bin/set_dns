@@ -2,17 +2,18 @@
 
 DESTINY='/etc/resolv.conf'
 
+touch $DESTINY
+
 if ! [ -w $DESTINY ]; then
-	echo 'vsf'
 	exit 1
 fi
 
 PRIMARY=$1
-echo 'nameserver '$PRIMARY > /etc/resolv.conf
+echo 'nameserver '$PRIMARY > $DESTINY
 
 if [ -n "$2" ]; then
 	SECONDARY=$2
-	echo 'nameserver '$SECONDARY >> /etc/resolv.conf
+	echo 'nameserver '$SECONDARY >> $DESTINY
 fi
 
 

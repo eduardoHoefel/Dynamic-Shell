@@ -1,34 +1,9 @@
 from log import log
-import curses, os
+import form_utils
 
-keys = {
-        10: 'ENTER',
-        27: 'ESC',
-        46: 'DOT',
-        48: '0',
-        49: '1',
-        50: '2',
-        51: '3',
-        52: '4',
-        53: '5',
-        54: '6',
-        55: '7',
-        56: '8',
-        57: '9',
-        258: 'DOWN_ARROW',
-        259: 'UP_ARROW',
-        260: 'UP_ARROW',
-        261: 'DOWN_ARROW',
-        263: 'BACKSPACE'
-}
-
-def get_input(window):
-    x = window['renderer'].getch() # Gets user input
-    log(x)
-    return keys[x]
-
-def get_form_input_text(input):
-    if input['type'] == 'ip':
+def to_text(input):
+    type = input['type']
+    if type == 'ip':
         text = '';
         for value in input['value']:
             if value['done']:
@@ -41,6 +16,20 @@ def get_form_input_text(input):
             text += text_aux + '.'
 
         return text[:-1]
+    elif type == 'string':
+        return (input['value'] + '_______________')[:15]
+    elif type == 'radio':
+        if input['value'] == 0:
+            return '[ ]'
+
+        return '[*]'
+    elif type == 'checkbox':
+        return '[ ]'
+    elif type == 'select':
+        if input['value'] == -1:
+            return 'Select:'
+
+        return input['options'][input['value']]['name']
 
     return ''
 
@@ -58,12 +47,24 @@ def get_cursor_pos(input):
             pos -= 1
 
         return pos
+    elif input['type'] == 'string':
+        return len(input['value'])
+    elif input['type'] == 'radio':
+        return 1
+    elif input['type'] == 'checkbox':
+        return 1
+    elif input['type'] == 'select':
+        return 0
+
 
     return 0
 
 def clear_value(input):
-    if input['type'] == 'ip':
-        input['value'] = [ 
+    type = input['type']
+    value = ''
+
+    if type == 'ip':
+        value = [ 
             {
                 "done": False,
                 "value": ''
@@ -78,20 +79,30 @@ def clear_value(input):
                 "value": ''
             }
         ]
-    elif input['type'] == 'select':
-        input['value'] = ' -- Selecione -- '
-    else:
-        input['value'] = ''
+    elif type == 'string':
+        value = ''
+    elif type == 'checkbox':
+        value = 0
+    elif type == 'radio':
+        value = 0
+    elif type == 'select':
+        value = -1
+
+    input['value'] = value
 
 def set_value(input, value):
     clear_value(input)
-    for char in value:
-        append(input, char)
+    if type(value) == int:
+        append(input, value)
+    else:
+        for char in value:
+            append(input, char)
 
-    append(input, 'ENTER')
+    append(input, 'FINISH')
 
 def append(input, action):
-    if input['type'] == 'ip':
+    input_type = input['type']
+    if input_type == 'ip':
         if action.isdigit():
             for value in input['value']:
                 if not value['done']:
@@ -104,26 +115,64 @@ def append(input, action):
                         int_value = int(value['value'])
                         if int_value > 255:
                             int_value = 255
+
                         value['value'] = str(int_value)
+                        onchange(input)
                     return True
+
         elif action == 'BACKSPACE':
             for value in input['value'][::-1]:
                 if value['done'] or len(value['value']) > 0:
                     value['value'] = value['value'][:-1]
                     value['done'] = False
+                    onchange(input)
                     return True
-        elif action in ['.', 'DOT', 'ENTER']:
+
+        elif action in ['.', 'DOT', 'ENTER', 'FINISH']:
             for value in input['value']:
                 if not value['done']:
-                    if int('0' + value['value']) == 0:
+                    if len(value['value']) == 0:
                         return False
 
                     value['done'] = True
                     int_value = int(value['value'])
                     if int_value > 255:
                         int_value = 255
+
                     value['value'] = str(int_value)
+                    onchange(input)
                     return True
+    elif input_type == 'select':
+        if action not in ['FINISH', 'ENTER', 'DOT', '.']:
+            input['value'] = int(action)
+            onchange(input)
+            return True
+    elif input_type == 'string':
+        if action == 'BACKSPACE':
+            input['value'] = input['value'][:-1]
+            onchange(input)
+            return True
+        elif action not in ['ENTER', 'FINISH']:
+            input['value'] += action
+            onchange(input)
+            return True
+    elif input_type == 'radio':
+        if action == 0:
+            input['value'] = 0
+            onchange(input)
+            return True
+        elif action == 1:
+            input['value'] = 1
+            onchange(input)
+            return True
+        elif action != 'FINISH':
+            if input['value'] == 0:
+                input['value'] = 1
+            else:
+                input['value'] = 0
+
+            onchange(input)
+            return True
 
     return False
 
@@ -135,9 +184,20 @@ def is_finished(input):
 
 
 def is_valid(input):
-    if input['type'] == 'ip':
+    type = input['type']
+    if type == 'ip':
         for value in input['value']:
             if not value['done']:
                     return False
+    elif type == 'string':
+        return len(input['value']) > 0
+    elif type == 'select':
+        return input['value'] >= 0
 
     return True
+
+def onchange(input):
+    if 'onchange' in input:
+        form_utils.exec_action(input['form'], input['onchange'], [input['options'][input['value']]['name']])
+    if input['type'] == 'select' and 'onset' in input['options'][input['value']]:
+        form_utils.exec_action(input['form'], input['options'][input['value']]['onset'])

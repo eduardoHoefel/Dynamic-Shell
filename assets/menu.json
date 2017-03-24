@@ -14,29 +14,10 @@
 						"type": "FORM",
 						"form": "set_dns"
 					}, {
-						"hotkey": 0,
-						"title": "Return",
-						"type": "RETURN"
-					}
-				]
-			}
-		}, {
-			"hotkey": 2,
-			"title": "Agents",
-			"type": "MENU",
-			"menu": {
-				"title": "Menu -> Agents",
-				"options": [
-					{
-						"hotkey": 1,
-						"title": "Create Agent",
-						"type": "COMMAND",
-						"command": ""
-					}, {
 						"hotkey": 2,
-						"title": "Delete Agent",
-						"type": "COMMAND",
-						"command": ""
+						"title": "Configure Interface",
+						"type": "FORM",
+						"form": "set_device_config"
 					}, {
 						"hotkey": 0,
 						"title": "Return",
@@ -44,11 +25,6 @@
 					}
 				]
 			}
-		}, {
-			"hotkey": 3,
-			"title": "Ur-Quan Masters",
-			"type": "COMMAND",
-			"command": "uqm"
 		}
 	]
 }

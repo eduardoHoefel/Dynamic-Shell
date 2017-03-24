@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#echo "Name=AAAAA"
+#echo "IP=123.123.123.123"
+#echo "Netmask=123.123.123.123"
+#echo "Gateway=123.123.123.123"
+
+FILE="/etc/sysconfig/network-scripts/ifcfg-"$1
+
+NAME=$(cat $FILE | grep 'NAME' | cut -d "=" -f2 | tr -d \")
+NETMASK=$(cat $FILE | grep 'NETMASK' | cut -d "=" -f2)
+IPADDR=$(cat $FILE | grep 'IPADDR' | cut -d "=" -f2)
+GATEWAY=$(cat $FILE | grep 'GATEWAY' | cut -d "=" -f2)
+ONBOOT=$(cat $FILE | grep 'ONBOOT' | cut -d "=" -f2 | sed 's/yes/1/' | sed 's/no/0/')
+BOOTPROTO=$(cat $FILE | grep 'BOOTPROTO' | cut -d "=" -f2 | sed 's/dhcp/0/' | sed 's/static/1/')
+
+echo "Name="$NAME
+echo "Netmask="$NETMASK
+echo "IP="$IPADDR
+echo "Gateway="$GATEWAY
+echo "On boot="$ONBOOT
+echo "Type="$BOOTPROTO
+
+exit 0

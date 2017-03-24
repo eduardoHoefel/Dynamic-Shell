@@ -30,19 +30,24 @@ def update(window, action):
     current_input = inputs[cursor_pos]
 
     if action == 'DOWN_ARROW':
-        input_utils.append(current_input, 'ENTER')
+        input_utils.append(current_input, 'FINISH')
         cursor_pos += 1
+        while cursor_pos >= 0 and cursor_pos < length and not inputs[cursor_pos]['visible']:
+            cursor_pos += 1
+
         if cursor_pos == SUBMIT_BUTTON and not form_utils.is_finished(form):
             cursor_pos += 1
         window['updated'] = True
     elif action == 'UP_ARROW':
-        input_utils.append(current_input, 'ENTER')
+        input_utils.append(current_input, 'FINISH')
         cursor_pos -= 1
+        while cursor_pos >= 0 and cursor_pos < length and not inputs[cursor_pos]['visible']:
+            cursor_pos -= 1
+
         if cursor_pos == SUBMIT_BUTTON and not form_utils.is_finished(form):
             cursor_pos -= 1
         window['updated'] = True
     elif action == 'ENTER':
-        #TODO: go to next, open select, select radio, mark checkbox, return or submit
         if cursor_pos == RETURN_BUTTON:
             windows_utils.return_to_menu()
             window['updated'] = True
@@ -51,7 +56,13 @@ def update(window, action):
                 result = form_utils.submit(form)['result']
                 message = form['messages'][result]
                 windows_utils.add_popup(window, result, message)
-            #windows_utils.return_to_menu()
+        else:
+            if current_input['type'] == 'select':
+                if action in ['.', 'DOT', 'ENTER']:
+                    windows_utils.add_modal(window, current_input)
+            else:
+                input_utils.append(current_input, 'ENTER')
+                window['updated'] = True
     elif action == 'ESC':
         windows_utils.return_to_menu()
         window['updated'] = True

@@ -6,6 +6,7 @@ import input_utils
 import window_menu
 import window_form
 import popup
+import modal
 import form_utils
 from log import log
 
@@ -16,6 +17,7 @@ WINDOW_HEADER = 0
 WINDOW_MENU = 1
 WINDOW_FORM = 2
 POPUP = 3
+MODAL = 4
 
 subtitle = 'version: 1.0.0'
 
@@ -90,6 +92,10 @@ def print_window(window):
             inputs = form['inputs']
             for index in range(len(inputs)):
                 input = inputs[index]
+
+                if not input['visible']:
+                    continue
+
                 name = input['name'] + ':'
 
                 textstyle = colors.get['NORMAL']
@@ -107,21 +113,57 @@ def print_window(window):
                 renderer.addstr(4+index*2, 6, name, textstyle)
 
                 textstyle = colors.get['NORMAL']
-                value = input_utils.get_form_input_text(input)
+                value = input_utils.to_text(input)
+                if input['type'] == 'select':
+                    value = value.ljust(12) + '[>]'
+
                 renderer.addstr(4+index*2, width - len(value), value, textstyle)
             
             if cursor_pos >= 0:
                 curses.curs_set(2)
                 input = inputs[cursor_pos]
-                value = input_utils.get_form_input_text(input)
-                cursor_x = width - len(value)
-                cursor_x += input_utils.get_cursor_pos(input)
+                value = input_utils.to_text(input)
+
+                cursor_x = width
+
+                if input['type'] == 'select':
+                    cursor_x -= 2
+                else:
+                    cursor_x += - len(value) + input_utils.get_cursor_pos(input)
+
                 renderer.move(4+cursor_pos*2, cursor_x)
 
     elif type == POPUP:
-        renderer.addstr(2, 2, window['title'], colors.get['RCX_TITLE']) # Title for this menu
+        renderer.addstr(2, 2, window['title'], colors.get['RCX_TITLE'])
 
         textstyle = colors.get['HIGHLIGHTED']
+
+        curses.textpad.rectangle(renderer, height - 2, 4, height, 19)
+        renderer.addstr(height - 1, 6, 'Return', textstyle)
+
+    elif type == MODAL:
+        renderer.addstr(2, 2, window['title'], colors.get['RCX_TITLE'])
+
+        for index in range(len(window['input']['options'])):
+            option = window['input']['options'][index]
+            cursor_pos = window['cursor_pos']
+            if index == cursor_pos:
+                textstyle = colors.get['HIGHLIGHTED']
+            else:
+                textstyle = colors.get['NORMAL']
+
+            text = option['name']
+
+            if index == window['input']['value']:
+                text = '* ' + text
+            else:
+                text = '  ' + text
+
+            renderer.addstr(4 + index * 2, 6, text, textstyle)
+
+        textstyle = colors.get['NORMAL']
+        if cursor_pos == modal.RETURN_BUTTON:
+            textstyle = colors.get['HIGHLIGHTED']
 
         curses.textpad.rectangle(renderer, height - 2, 4, height, 19)
         renderer.addstr(height - 1, 6, 'Return', textstyle)
@@ -132,6 +174,7 @@ def print_window(window):
             renderer.attrset(colors.get['POPUP_BORDER_SUCCESS'])
         else:
             renderer.attrset(colors.get['POPUP_BORDER_ERROR'])
+
     elif window['active']:
         renderer.attrset(colors.get['WINDOW_BORDER_ACTIVE'])
     else:
@@ -152,6 +195,8 @@ def update(action):
         window_form.update(window, action)
     elif type == POPUP:
         popup.update(window, action)
+    elif type == MODAL:
+        modal.update(window, action)
 
 def render():
     for window in windows:
@@ -172,6 +217,39 @@ def set_form(form):
     global active_window
     set_active(windows[WINDOW_FORM])
     window_form.load_form(active_window, form)
+
+def add_modal(parent_window, input):
+    parent_width = parent_window['config']['width']
+    parent_height = parent_window['config']['height']
+
+    width = trunc(parent_width / 2)
+    height = 10 + 2 * len(input['options'])
+
+    pos_y = trunc((parent_height - height) / 2)
+    pos_x = trunc((parent_width - width) / 2)
+
+    renderer = parent_window['renderer'].derwin(height, width, pos_y, pos_x)
+    renderer.keypad(1) # Capture input from keypad
+
+    #parent_window['active'] = False
+
+    modal = {}
+    modal['input'] = input
+
+    if input['value'] < 0:
+        modal['cursor_pos'] = 0
+    else:
+        modal['cursor_pos'] = input['value']
+
+    modal['parent'] = parent_window
+    modal['title'] = input['name']
+    modal['renderer'] = renderer
+    modal['config'] = { 'type': MODAL, 'height': height, 'width': width, 'pos_y': pos_y, 'pos_y': pos_x }
+
+    modal['updated'] = True
+
+    windows.append(modal)
+    set_active(modal)
 
 def add_popup(parent_window, type, message):
     parent_width = parent_window['config']['width']

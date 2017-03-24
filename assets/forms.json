@@ -12,7 +12,71 @@
 				"required": 0
 			}
 		],
-		"fill_command": "get_dns",
+		"onload": {
+			"type": "FILL",
+			"command": "get_dns"
+		},
+		"messages": [
+			"Success!",
+			"Not enough permissions!"
+		]
+	},
+	"set_device_config": {
+		"title": "Menu -> Network -> Configure Device",
+		"inputs": [
+			{
+				"name": "Device",
+				"type": "select",
+				"required": 1,
+				"options": "get_devices",
+				"onchange": {
+					"type": "FILL",
+					"command": "get_device_config"
+				}
+			}, {
+				"name": "Name",
+				"type": "string",
+				"required": 1
+			}, {
+				"name": "Type",
+				"type": "select",
+				"required": 1,
+				"options": [
+					{
+						"name": "dhcp",
+						"value": 0,
+						"onset": {
+							"type": "HIDE_FIELDS",
+							"values": ["IP", "Netmask", "Gateway"]
+						}
+					}, {
+						"name": "static",
+						"value": 1,
+						"onset": {
+							"type": "SHOW_FIELDS",
+							"values": ["IP", "Netmask", "Gateway"]
+						}
+					}
+				]
+			}, {
+				"name": "On boot",
+				"type": "radio",
+				"required": 0
+			}, {
+				"name": "IP",
+				"type": "ip",
+				"required": 1
+			}, {
+				"name": "Netmask",
+				"type": "ip",
+				"required": 1
+			}, {
+				"name": "Gateway",
+				"type": "ip",
+				"required": 1
+			}
+		],
+		"onload": "",
 		"messages": [
 			"Success!",
 			"Not enough permissions!"

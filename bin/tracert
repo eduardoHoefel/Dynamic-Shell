@@ -1,4 +1,4 @@
 #!/bin/bash
-cat .tracert.log.txt
+cat tmp/.tracert.log.txt
 
 exit 0

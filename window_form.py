@@ -65,7 +65,7 @@ def update(window, action):
             window['updated'] = True
         elif cursor_pos == SUBMIT_BUTTON:
             if form_utils.is_finished(form):
-                if form['type'] == 'set_config':
+                if form['type'] == 'save_config':
                     result = form_utils.submit(form)['result']
                     message = form['messages'][result]
                     windows_utils.add_popup(window, result, message)

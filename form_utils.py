@@ -27,8 +27,9 @@ def get_value(input):
 
     return ''
 
-def submit(form):
-    action = form['name']
+def submit(form, action = ''):
+    if action == '':
+        action = form['name']
     args = []
 
     for input in form['inputs']:
@@ -46,7 +47,7 @@ def init(form):
 
         input_utils.clear_value(input)
 
-    if form['onload'] != '':
+    if 'onload' in form:
         exec_action(form, form['onload'])
 
     return form

@@ -1,6 +1,7 @@
 {
 	"set_dns": {
 		"title": "Menu -> Network -> Set DNS",
+		"type": "save_config",
 		"inputs": [
 			{
 				"name": "Primary",
@@ -23,6 +24,7 @@
 	},
 	"set_device_config": {
 		"title": "Menu -> Network -> Configure Device",
+		"type": "save_config",
 		"inputs": [
 			{
 				"name": "Device",
@@ -76,10 +78,35 @@
 				"required": 1
 			}
 		],
-		"onload": "",
 		"messages": [
 			"Success!",
 			"Not enough permissions!"
 		]
+	},
+	"ping": {
+		"title": "Menu -> Network -> Ping",
+		"type": "stream",
+		"behavior": "increment",
+		"limit": 4,
+		"inputs": [
+			{
+				"name": "IP",
+				"type": "ip",
+				"required": 1
+			}
+		]
+	},
+	"tracert": {
+		"title": "Menu -> Network -> Trace route",
+		"type": "stream",
+		"behavior": "substitute",
+		"inputs": [
+			{
+				"name": "IP",
+				"type": "ip",
+				"required": 1
+			}
+		],
+		"onsubmit": "tracert_start_background"
 	}
 }

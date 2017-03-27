@@ -19,12 +19,26 @@
 						"type": "FORM",
 						"form": "set_device_config"
 					}, {
+						"hotkey": 3,
+						"title": "Ping",
+						"type": "FORM",
+						"form": "ping"
+					}, {
+						"hotkey": 4,
+						"title": "Trace route",
+						"type": "FORM",
+						"form": "tracert"
+					}, {
 						"hotkey": 0,
 						"title": "Return",
 						"type": "RETURN"
 					}
 				]
 			}
+		}, {
+			"hotkey": 0,
+			"title": "Exit",
+			"type": "RETURN"
 		}
 	]
 }

@@ -101,6 +101,9 @@ def set_value(input, value):
     append(input, 'FINISH')
 
 def append(input, action):
+    if action == '':
+        return
+
     input_type = input['type']
     if input_type == 'ip':
         if action.isdigit():
@@ -128,7 +131,7 @@ def append(input, action):
                     onchange(input)
                     return True
 
-        elif action in ['.', 'DOT', 'ENTER', 'FINISH']:
+        elif action in ['.', ' ', 'ENTER', 'FINISH']:
             for value in input['value']:
                 if not value['done']:
                     if len(value['value']) == 0:
@@ -143,7 +146,7 @@ def append(input, action):
                     onchange(input)
                     return True
     elif input_type == 'select':
-        if action not in ['FINISH', 'ENTER', 'DOT', '.']:
+        if action not in ['FINISH', 'ENTER', ' ', '.']:
             input['value'] = int(action)
             onchange(input)
             return True

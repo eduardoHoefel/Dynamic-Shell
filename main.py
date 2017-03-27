@@ -8,9 +8,11 @@ from time import sleep
 import curses, os #curses is the interface for capturing key presses on the menu, os launches the files
 import windows_utils
 import keys_utils
+import os_utils
 from log import log
 
 action = 0
+open = True
 
 def init():
     windows_utils.init()
@@ -18,10 +20,22 @@ def init():
 # Main program
 def main():
     init()
+    global open
     while True:
         update()
         render()
+
+        if not open:
+            break
+
         get_input()
+
+    curses.endwin()
+    curses.curs_set(1)
+    curses.reset_shell_mode()
+    curses.echo()
+    os.system('clear')
+    exit()
 
 def get_input():
     global action
@@ -40,6 +54,7 @@ def update():
 def render():
     windows_utils.render()
 
-main()
-curses.endwin() #VITAL! This closes out the menu system and returns you to the bash prompt.
-os.system('clear')
+def close():
+    global open
+    open = False
+    exit()

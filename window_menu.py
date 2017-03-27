@@ -27,8 +27,13 @@ def enter_menu(window, menu):
     window['menu'] = new_menu
 
 def return_menu(window):
-    window['menu'] = window['menu']['parent']
-    return window['menu']['cursor_pos']
+    if 'parent' in window['menu']:
+        window['menu'] = window['menu']['parent']
+        return window['menu']['cursor_pos']
+
+    import main
+    main.close()
+    return 0
 
 def update(window, action):
     menu = window['menu']

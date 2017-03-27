@@ -27,10 +27,13 @@ def update(window, action):
     length = len(inputs)
 
     cursor_pos = window['cursor_pos']
-    current_input = inputs[cursor_pos]
+    if cursor_over_input(cursor_pos, inputs):
+        current_input = inputs[cursor_pos]
 
     if action == 'DOWN_ARROW':
-        input_utils.append(current_input, 'FINISH')
+        if cursor_over_input(cursor_pos, inputs):
+            input_utils.append(current_input, 'FINISH')
+
         cursor_pos += 1
         while cursor_pos >= 0 and cursor_pos < length and not inputs[cursor_pos]['visible']:
             cursor_pos += 1
@@ -39,35 +42,44 @@ def update(window, action):
             cursor_pos += 1
         window['updated'] = True
     elif action == 'UP_ARROW':
-        input_utils.append(current_input, 'FINISH')
+        if cursor_over_input(cursor_pos, inputs):
+            input_utils.append(current_input, 'FINISH')
+
         cursor_pos -= 1
-        while cursor_pos >= 0 and cursor_pos < length and not inputs[cursor_pos]['visible']:
+        while cursor_over_input(cursor_pos, inputs) and not inputs[cursor_pos]['visible']:
             cursor_pos -= 1
 
         if cursor_pos == SUBMIT_BUTTON and not form_utils.is_finished(form):
             cursor_pos -= 1
         window['updated'] = True
     elif action == 'ENTER':
-        if cursor_pos == RETURN_BUTTON:
-            windows_utils.return_to_menu()
-            window['updated'] = True
-        elif cursor_pos == SUBMIT_BUTTON:
-            if form_utils.is_finished(form):
-                result = form_utils.submit(form)['result']
-                message = form['messages'][result]
-                windows_utils.add_popup(window, result, message)
-        else:
+        if cursor_over_input(cursor_pos, inputs):
             if current_input['type'] == 'select':
-                if action in ['.', 'DOT', 'ENTER']:
+                if action in ['.', 'ENTER', ' ']:
                     windows_utils.add_modal(window, current_input)
             else:
                 input_utils.append(current_input, 'ENTER')
                 window['updated'] = True
+        elif cursor_pos == RETURN_BUTTON:
+            windows_utils.return_to_menu()
+            window['updated'] = True
+        elif cursor_pos == SUBMIT_BUTTON:
+            if form_utils.is_finished(form):
+                if form['type'] == 'set_config':
+                    result = form_utils.submit(form)['result']
+                    message = form['messages'][result]
+                    windows_utils.add_popup(window, result, message)
+                elif form['type'] == 'stream':
+                    windows_utils.add_stream(window)
+
+                if 'onsubmit' in form:
+                    form_utils.submit(form, form['onsubmit'])
+
     elif action == 'ESC':
         windows_utils.return_to_menu()
         window['updated'] = True
     else:
-        if input_utils.append(current_input, action):
+        if cursor_over_input(cursor_pos, inputs) and input_utils.append(current_input, action):
             window['updated'] = True
 
     if (cursor_pos < RETURN_BUTTON):
@@ -76,3 +88,6 @@ def update(window, action):
         cursor_pos = RETURN_BUTTON
 
     window['cursor_pos'] = cursor_pos
+
+def cursor_over_input(cursor_pos, inputs):
+    return cursor_pos >= 0 and cursor_pos < len(inputs)

@@ -1,7 +1,6 @@
-import windows_utils
-import popup
 import time
-import form_utils
+from src.windows import windows_utils, popup
+from src import form_utils
 
 def update(window, action):
     popup.update(window, action)
@@ -14,8 +13,6 @@ def update(window, action):
         window['updated'] = True
         window['updates'] = 1
     else:
-        from log import log
-        log(window['updates'])
         if 'limit' not in window['form'] or window['updates'] < window['form']['limit']:
             new_time = time.time()
             if new_time - window['time'] > 1:

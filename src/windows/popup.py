@@ -1,4 +1,4 @@
-import windows_utils
+from src.windows import windows_utils
 
 def update(window, action):
     if action in ['ENTER', 'ESC']:

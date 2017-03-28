@@ -17,10 +17,10 @@
 			"type": "FILL",
 			"command": "get_dns"
 		},
-		"messages": [
-			"Success!",
-			"Not enough permissions!"
-		]
+		"messages": {
+			"0": "Success!",
+			"1": "Not enough permissions!"
+		}
 	},
 	"set_device_config": {
 		"title": "Menu -> Network -> Configure Device",
@@ -78,10 +78,10 @@
 				"required": 1
 			}
 		],
-		"messages": [
-			"Success!",
-			"Not enough permissions!"
-		]
+		"messages": {
+			"0": "Success!",
+			"1": "Not enough permissions!"
+		}
 	},
 	"ping": {
 		"title": "Menu -> Network -> Ping",

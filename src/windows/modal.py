@@ -1,5 +1,5 @@
-import windows_utils
-import input_utils
+from src import input_utils
+from src.windows import windows_utils
 
 RETURN_BUTTON = -1
 

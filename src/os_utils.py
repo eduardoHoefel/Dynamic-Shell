@@ -1,5 +1,5 @@
 import subprocess
-from log import log
+from src.log import log
 
 def execute(action, args = []):
 

@@ -1,15 +1,8 @@
-import curses, os #curses is the interface for capturing key presses on the menu, os launches the files
-import curses.textpad
+import curses, os, curses.textpad
 from math import ceil, trunc
-import colors
-import input_utils
-import window_menu
-import window_form
-import popup
-import modal
-import stream
-import form_utils
-from log import log
+from src import colors, input_utils, form_utils
+from src.log import log
+from src.windows import window_menu, window_form, popup, modal, stream
 
 windows = 0
 active_window = 0
@@ -20,8 +13,6 @@ WINDOW_FORM = 2
 POPUP = 3
 MODAL = 4
 STREAM = 5
-
-subtitle = 'version: 1.0.0'
 
 def print_window(window):
     if not window['updated']:
@@ -45,7 +36,10 @@ def print_window(window):
                 renderer.addstr(i, 2, line, colors.get['RCX_TITLE']) # Title for this menu
                 i += 1
 
-        renderer.addstr(height, 2, subtitle, colors.get['RCX_TITLE']) # Title for this menu
+        with open('version.txt') as f:
+            subtitle = 'version: ' + f.readline()
+            renderer.addstr(height, 2, subtitle, colors.get['RCX_TITLE']) # Title for this menu
+
     elif type == WINDOW_MENU:
 
         textstyle = colors.get['MENU_TITLE']
@@ -203,7 +197,7 @@ def print_window(window):
 
     
     if type == POPUP:
-        if window['submit']['result'] == 0:
+        if window['submit']['result'] == '0':
             renderer.attrset(colors.get['POPUP_BORDER_SUCCESS'])
         else:
             renderer.attrset(colors.get['POPUP_BORDER_ERROR'])

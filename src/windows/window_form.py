@@ -1,7 +1,6 @@
-import windows_utils
-import input_utils
-import form_utils
-from log import log
+from src import input_utils, form_utils
+from src.log import log
+from src.windows import windows_utils
 
 RETURN_BUTTON = -2
 SUBMIT_BUTTON = -1
@@ -67,7 +66,12 @@ def update(window, action):
             if form_utils.is_finished(form):
                 if form['type'] == 'save_config':
                     result = form_utils.submit(form)['result']
-                    message = form['messages'][result]
+                    result = str(result)
+                    if result in form['messages']:
+                        message = form['messages'][result]
+                    else:
+                        message = 'Message not found: ' + result
+
                     windows_utils.add_popup(window, result, message)
                 elif form['type'] == 'stream':
                     windows_utils.add_stream(window)

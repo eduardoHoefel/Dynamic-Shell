@@ -1,6 +1,5 @@
-from log import log
-import input_utils
-import os_utils
+from src.log import log
+from src import input_utils, os_utils
 
 def is_finished(form):
     for input in form['inputs']:

@@ -1,5 +1,5 @@
-from log import log
-import form_utils
+from src import form_utils
+from src.log import log
 
 def to_text(input):
     type = input['type']

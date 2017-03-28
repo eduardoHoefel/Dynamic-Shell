@@ -1,5 +1,5 @@
 import curses, os
-from log import log
+from src.log import log
 
 keys = {
         3: '', #CTRL C

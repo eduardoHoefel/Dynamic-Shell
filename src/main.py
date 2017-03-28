@@ -3,13 +3,11 @@
 # Topmenu and the submenus are based of the example found at this location http://blog.skeltonnetworks.com/2010/03/python-curses-custom-menu/
 # The rest of the work was done by Matthew Bennett and he requests you keep these two mentions when you reuse the code :-)
 # Basic code refactoring by Andrew Scheller
-
+import curses, os
 from time import sleep
-import curses, os #curses is the interface for capturing key presses on the menu, os launches the files
-import windows_utils
-import keys_utils
-import os_utils
-from log import log
+from src import keys_utils, os_utils
+from src.log import log
+from src.windows import windows_utils
 
 action = 0
 open = True

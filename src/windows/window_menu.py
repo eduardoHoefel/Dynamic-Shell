@@ -1,5 +1,5 @@
-import windows_utils
-from log import log
+from src.log import log
+from src.windows import windows_utils
 
 def load_menu(window):
     import json
@@ -31,7 +31,7 @@ def return_menu(window):
         window['menu'] = window['menu']['parent']
         return window['menu']['cursor_pos']
 
-    import main
+    from src import main
     main.close()
     return 0
 

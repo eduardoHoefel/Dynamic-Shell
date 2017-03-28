@@ -1,5 +1,4 @@
 from src.log import log
-from src.windows import windows_utils
 
 def load_menu(window):
     import json
@@ -77,6 +76,7 @@ def enter(window):
         enter_menu(window, selected_option['menu'])
         cursor_pos = 0
     elif type == 'FORM':
+        from src.windows import windows_utils
         windows_utils.set_form(selected_option['form'])
     elif type == 'RETURN':
         cursor_pos = return_menu(window)

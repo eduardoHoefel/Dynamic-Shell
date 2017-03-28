@@ -1,4 +1,3 @@
-from src import form_utils
 from src.log import log
 
 def to_text(input):
@@ -200,6 +199,7 @@ def is_valid(input):
     return True
 
 def onchange(input):
+    from src import form_utils
     if 'onchange' in input:
         form_utils.exec_action(input['form'], input['onchange'], [input['options'][input['value']]['name']])
     if input['type'] == 'select' and 'onset' in input['options'][input['value']]:

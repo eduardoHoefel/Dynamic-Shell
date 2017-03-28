@@ -1,9 +1,10 @@
 from src import input_utils
-from src.windows import windows_utils
 
 RETURN_BUTTON = -1
 
 def update(window, action):
+    from src.windows import windows_utils
+
     cursor_pos = window['cursor_pos']
     input = window['input']
     length = len(input['options'])

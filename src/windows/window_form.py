@@ -1,6 +1,5 @@
 from src import input_utils, form_utils
 from src.log import log
-from src.windows import windows_utils
 
 RETURN_BUTTON = -2
 SUBMIT_BUTTON = -1
@@ -21,6 +20,7 @@ def load_form(window, form_name):
     window['updated'] = True
 
 def update(window, action):
+    from src.windows import windows_utils
     form = window['form']
     inputs = form['inputs']
     length = len(inputs)

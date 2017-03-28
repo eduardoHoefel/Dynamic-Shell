@@ -87,7 +87,7 @@
 		"title": "Menu -> Network -> Ping",
 		"type": "stream",
 		"behavior": "increment",
-		"limit": 4,
+		"limit": 99,
 		"inputs": [
 			{
 				"name": "IP",

@@ -1,6 +1,6 @@
 import time
-from src.windows import windows_utils, popup
 from src import form_utils
+from src.windows import popup
 
 def update(window, action):
     popup.update(window, action)

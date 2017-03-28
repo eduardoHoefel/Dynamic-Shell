@@ -1,112 +1,107 @@
 {
-	"set_dns": {
-		"title": "Menu -> Network -> Set DNS",
-		"type": "save_config",
-		"inputs": [
-			{
-				"name": "Primary",
-				"type": "ip",
-				"required": 1
-			}, {
-				"name": "Secondary",
-				"type": "ip",
-				"required": 0
-			}
-		],
-		"onload": {
-			"type": "FILL",
-			"command": "get_dns"
-		},
-		"messages": {
-			"0": "Success!",
-			"1": "Not enough permissions!"
-		}
-	},
-	"set_device_config": {
-		"title": "Menu -> Network -> Configure Device",
-		"type": "save_config",
-		"inputs": [
-			{
-				"name": "Device",
-				"type": "select",
-				"required": 1,
-				"options": "get_devices",
-				"onchange": {
-					"type": "FILL",
-					"command": "get_device_config"
-				}
-			}, {
-				"name": "Name",
-				"type": "string",
-				"required": 1
-			}, {
-				"name": "Type",
-				"type": "select",
-				"required": 1,
-				"options": [
-					{
-						"name": "dhcp",
-						"value": 0,
-						"onset": {
-							"type": "HIDE_FIELDS",
-							"values": ["IP", "Netmask", "Gateway"]
-						}
-					}, {
-						"name": "static",
-						"value": 1,
-						"onset": {
-							"type": "SHOW_FIELDS",
-							"values": ["IP", "Netmask", "Gateway"]
-						}
-					}
-				]
-			}, {
-				"name": "On boot",
-				"type": "radio",
-				"required": 0
-			}, {
-				"name": "IP",
-				"type": "ip",
-				"required": 1
-			}, {
-				"name": "Netmask",
-				"type": "ip",
-				"required": 1
-			}, {
-				"name": "Gateway",
-				"type": "ip",
-				"required": 1
-			}
-		],
-		"messages": {
-			"0": "Success!",
-			"1": "Not enough permissions!"
-		}
-	},
-	"ping": {
-		"title": "Menu -> Network -> Ping",
-		"type": "stream",
-		"behavior": "increment",
-		"limit": 99,
-		"inputs": [
-			{
-				"name": "IP",
-				"type": "ip",
-				"required": 1
-			}
-		]
-	},
-	"tracert": {
-		"title": "Menu -> Network -> Trace route",
-		"type": "stream",
-		"behavior": "substitute",
-		"inputs": [
-			{
-				"name": "IP",
-				"type": "ip",
-				"required": 1
-			}
-		],
-		"onsubmit": "tracert_start_background"
-	}
+  "set_dns": {
+    "title": "Menu -> Network -> Set DNS",
+    "type": "save_config",
+    "inputs": [
+      {
+        "name": "Primary",
+        "type": "ip",
+        "required": 1
+      }, {
+        "name": "Secondary",
+        "type": "ip",
+        "required": 0
+      }
+    ],
+    "onload": {
+      "type": "FILL",
+      "command": "get_dns"
+    },
+    "messages": {
+      "0": "Success!",
+      "1": "Not enough permissions!"
+    }
+  },
+  "set_device_config": {
+    "title": "Menu -> Network -> Configure Device",
+    "type": "save_config",
+    "inputs": [
+      {
+        "name": "Device",
+        "type": "select",
+        "required": 1,
+        "options": "get_devices",
+        "onchange": {
+          "type": "FILL",
+          "command": "get_device_config"
+        }
+      }, {
+        "name": "Name",
+        "type": "string",
+        "required": 1
+      }, {
+        "name": "IP",
+        "type": "ip",
+        "required": 1
+      }, {
+        "name": "Netmask",
+        "type": "ip",
+        "required": 1
+      }, {
+        "name": "Gateway",
+        "type": "ip",
+        "required": 1
+      }
+    ],
+    "messages": {
+      "0": "Success!",
+      "1": "Not enough permissions!"
+    }
+  },
+  "ping": {
+    "title": "Menu -> Network -> Ping",
+    "type": "stream",
+    "behavior": "increment",
+    "limit": 99,
+    "inputs": [
+      {
+        "name": "IP",
+        "type": "ip",
+        "required": 1
+      }
+    ]
+  },
+  "tracert": {
+    "title": "Menu -> Network -> Trace route",
+    "type": "stream",
+    "behavior": "substitute",
+    "inputs": [
+      {
+        "name": "IP",
+        "type": "ip",
+        "required": 1
+      }
+    ],
+    "onsubmit": "tracert_start_background"
+  },
+  "set_app_ip": {
+    "title": "Menu -> Application -> Set Application IP",
+    "type": "save_config",
+    "inputs": [
+      {
+        "name": "IP",
+        "type": "ip",
+        "required": 1
+      }
+    ],
+    "onload": {
+      "type": "FILL",
+      "command": "get_app_ip"
+    },
+    "messages": {
+      "0": "Success!",
+      "1": "Not enough permissions!",
+      "2": "Not an RCX Application machine!"
+    }
+  }
 }

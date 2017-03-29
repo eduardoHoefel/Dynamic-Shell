@@ -101,7 +101,7 @@ def set_value(input, value):
 
 def append(input, action):
     if action == '':
-        return
+        return False
 
     input_type = input['type']
     if input_type == 'ip':
@@ -121,6 +121,19 @@ def append(input, action):
                         value['value'] = str(int_value)
                         onchange(input)
                     return True
+            last = input['value'][-1]
+            if len(last) < 3:
+                last['done'] = False
+                last['value'] += action
+                if len(value['value']) == 3 and int(value['value']) > 0:
+                    value['done'] = True
+                    int_value = int(value['value'])
+                    if int_value > 255:
+                        int_value = 255
+
+                    value['value'] = str(int_value)
+                    onchange(input)
+                return True
 
         elif action == 'BACKSPACE':
             for value in input['value'][::-1]:
@@ -130,11 +143,11 @@ def append(input, action):
                     onchange(input)
                     return True
 
-        elif action in ['.', ' ', 'ENTER', 'FINISH']:
+        elif action in ['.', ' ', 'ENTER', 'FINISH', 'RIGHT_ARROW']:
             for value in input['value']:
                 if not value['done']:
                     if len(value['value']) == 0:
-                        return False
+                        return True
 
                     value['done'] = True
                     int_value = int(value['value'])

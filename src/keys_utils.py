@@ -2,8 +2,10 @@ import curses, os
 from src.log import log
 
 keys = {
+        -1: '', #CTRL C
         3: '', #CTRL C
         4: '', #CTRL D
+        9: 'TAB',
         10: 'ENTER',
         26: '', #CTRL Z
         27: 'ESC',
@@ -73,8 +75,8 @@ keys = {
         121: 'z',
         258: 'DOWN_ARROW',
         259: 'UP_ARROW',
-        260: 'UP_ARROW',
-        261: 'DOWN_ARROW',
+        260: 'LEFT_ARROW',
+        261: 'RIGHT_ARROW',
         263: 'BACKSPACE'
 }
 

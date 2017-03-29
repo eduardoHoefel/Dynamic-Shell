@@ -36,6 +36,30 @@
 				]
 			}
 		}, {
+			"hotkey": 2,
+			"title": "Services",
+			"type": "MENU",
+			"menu": {
+				"title": "Menu -> Services",
+				"options": [
+					{
+						"hotkey": 1,
+						"title": "Restart Service",
+						"type": "FORM",
+						"form": "restart_service"
+					}, {
+						"hotkey": 2,
+						"title": "Stop Service",
+						"type": "FORM",
+						"form": "stop_service"
+					}, {
+						"hotkey": 0,
+						"title": "Return",
+						"type": "RETURN"
+					}
+				]
+			}
+		}, {
 			"hotkey": 0,
 			"title": "Exit",
 			"type": "RETURN"

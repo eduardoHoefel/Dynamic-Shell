@@ -103,5 +103,65 @@
       "1": "Not enough permissions!",
       "2": "Not an RCX Application machine!"
     }
+  },
+  "restart_service": {
+    "title": "Menu -> Services -> Restart Service",
+    "type": "save_config",
+    "inputs": [
+      {
+        "name": "Service",
+        "type": "select",
+        "required": 1,
+        "options": [
+			{
+				"name": "Apache",
+				"value": "httpd"
+			}, {
+				"name": "Oracle database",
+				"value": "oracle-xe"
+			}, {
+				"name": "SSH",
+				"value": "sshd"
+			}, {
+				"name": "Samba",
+				"value": "smbd"
+			}
+		]
+      }
+    ],
+    "messages": {
+      "0": "Success!",
+      "1": "Not enough permissions!"
+    }
+  },
+  "stop_service": {
+    "title": "Menu -> Services -> Stop Service",
+    "type": "save_config",
+    "inputs": [
+      {
+        "name": "Service",
+        "type": "select",
+        "required": 1,
+        "options": [
+			{
+				"name": "Apache",
+				"value": "httpd"
+			}, {
+				"name": "Oracle database",
+				"value": "oracle-xe"
+			}, {
+				"name": "SSH",
+				"value": "sshd"
+			}, {
+				"name": "Samba",
+				"value": "smbd"
+			}
+		]
+      }
+    ],
+    "messages": {
+      "0": "Success!",
+      "1": "Not enough permissions!"
+    }
   }
 }

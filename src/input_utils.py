@@ -158,7 +158,7 @@ def append(input, action):
                     onchange(input)
                     return True
     elif input_type == 'select':
-        if action not in ['FINISH', 'ENTER', ' ', '.']:
+        if type(action) == int or action.isdigit():
             input['value'] = int(action)
             onchange(input)
             return True
@@ -167,7 +167,7 @@ def append(input, action):
             input['value'] = input['value'][:-1]
             onchange(input)
             return True
-        elif action not in ['ENTER', 'FINISH']:
+        elif len(action) == 1:
             input['value'] += action
             onchange(input)
             return True

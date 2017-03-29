@@ -78,6 +78,13 @@ def enter(window):
     elif type == 'FORM':
         from src.windows import windows_utils
         windows_utils.set_form(selected_option['form'])
+    elif type == 'COMMAND':
+        if 'confirm' in selected_option:
+            from src.windows import windows_utils
+            windows_utils.add_confirm(window, selected_option['confirm'], selected_option['command'])
+        else:
+            from src import os_utils
+            os_utils.execute(selected_option['command'])
     elif type == 'RETURN':
         cursor_pos = return_menu(window)
 

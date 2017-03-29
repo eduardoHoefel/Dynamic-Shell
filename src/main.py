@@ -26,6 +26,7 @@ def main():
         if not open:
             break
 
+        sleep(0.05)
         get_input()
 
     curses.endwin()

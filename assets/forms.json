@@ -82,10 +82,13 @@
         "required": 1
       }
     ],
-    "onsubmit": "tracert_start_background"
+    "onsubmit": {
+        "type": "COMMAND",
+        "command": "tracert_start_background"
+    }
   },
   "set_app_ip": {
-    "title": "Menu -> Application -> Set Application IP",
+    "title": "Menu -> Application -> Set Web Application IP",
     "type": "save_config",
     "inputs": [
       {
@@ -114,10 +117,10 @@
         "required": 1,
         "options": [
 			{
-				"name": "Apache",
+				"name": "Webserver",
 				"value": "httpd"
 			}, {
-				"name": "Oracle database",
+				"name": "Database",
 				"value": "oracle-xe"
 			}, {
 				"name": "SSH",
@@ -125,6 +128,9 @@
 			}, {
 				"name": "Samba",
 				"value": "smbd"
+			}, {
+				"name": "Voice Manager",
+				"value": "asterisk"
 			}
 		]
       }
@@ -144,10 +150,10 @@
         "required": 1,
         "options": [
 			{
-				"name": "Apache",
+				"name": "Webserver",
 				"value": "httpd"
 			}, {
-				"name": "Oracle database",
+				"name": "Database",
 				"value": "oracle-xe"
 			}, {
 				"name": "SSH",
@@ -155,8 +161,31 @@
 			}, {
 				"name": "Samba",
 				"value": "smbd"
+			}, {
+				"name": "Voice Manager",
+				"value": "asterisk"
 			}
 		]
+      }
+    ],
+    "messages": {
+      "0": "Success!",
+      "1": "Not enough permissions!"
+    }
+  },
+  "set_asterisk_device": {
+    "title": "Menu -> Application -> Set Voice Manager Device",
+    "type": "save_config",
+    "inputs": [
+      {
+        "name": "Device",
+        "type": "select",
+        "required": 1,
+        "options": "get_devices",
+        "onload": {
+          "type": "FILL",
+          "command": "get_asterisk_device"
+        }
       }
     ],
     "messages": {

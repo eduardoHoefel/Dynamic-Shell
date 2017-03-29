@@ -85,7 +85,8 @@ def update(window, action):
                     windows_utils.add_stream(window)
 
                 if 'onsubmit' in form:
-                    form_utils.submit(form, form['onsubmit'])
+                    args = form_utils.to_args(form['inputs'])
+                    form_utils.exec_action(form, form['onsubmit'], args)
 
     elif action == 'ESC':
         windows_utils.return_to_menu()

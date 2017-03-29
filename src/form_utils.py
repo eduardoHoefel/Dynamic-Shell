@@ -26,13 +26,19 @@ def get_value(input):
 
     return ''
 
+def to_args(inputs):
+    args = []
+
+    for input in inputs:
+        args.append(get_value(input))
+
+    return args
+
 def submit(form, action = ''):
     if action == '':
         action = form['name']
-    args = []
 
-    for input in form['inputs']:
-        args.append(get_value(input))
+    args = to_args(form['inputs'])
 
     return os_utils.execute_with_log(action, args)
 
@@ -68,12 +74,14 @@ def exec_action(form, action, args=[]):
         for input in inputs:
             if input['name'] in action['values']:
                 input['visible'] = True
-
     elif type == 'HIDE_FIELDS':
         inputs = form['inputs']
         for input in inputs:
             if input['name'] in action['values']:
                 input['visible'] = False
+    elif type == 'COMMAND':
+        command = action['command']
+        os_utils.execute(command, args)
 
 def load_options(input):
     command = input['options']

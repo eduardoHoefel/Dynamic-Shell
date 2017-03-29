@@ -34,7 +34,7 @@ def submit(form, action = ''):
     for input in form['inputs']:
         args.append(get_value(input))
 
-    return os_utils.execute(action, args)
+    return os_utils.execute_with_log(action, args)
 
 def init(form):
     inputs = form['inputs']

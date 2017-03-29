@@ -21,6 +21,11 @@ def execute(action, args = []):
 
     return { "result": returncode, "return": result }
 
+def execute_with_log(action, args = []):
+    execute('log', [action] + args)
+    result = execute(action, args)
+    return result    
+
 def execute_background(action, args):
     command = action + ['&']
 

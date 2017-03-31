@@ -6,7 +6,8 @@ def update(window, action):
     cursor_pos = window['cursor_pos']
     if action in ['ENTER', 'ESC']:
         windows_utils.remove_popup(window)
-        os_utils.execute(window['command'])
+        if cursor_pos == 1:
+            os_utils.execute(window['command'])
     elif action in ['LEFT_ARROW', 'UP_ARROW']:
         cursor_pos = 0
         window['updated'] = True

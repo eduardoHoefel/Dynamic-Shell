@@ -5,6 +5,7 @@ keys = {
         -1: '', #CTRL C
         3: '', #CTRL C
         4: '', #CTRL D
+        8: 'BACKSPACE',
         9: 'TAB',
         10: 'ENTER',
         26: '', #CTRL Z

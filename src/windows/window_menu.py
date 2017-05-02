@@ -50,6 +50,9 @@ def update(window, action):
     elif action == 'ENTER':
         cursor_pos = enter(window)
         window['updated'] = True
+    elif action in ['ESC', 'BACKSPACE']:
+        cursor_pos = return_menu(window)
+        window['updated'] = True
     else:
         for index in range(len(options)):
             if str(options[index]['hotkey']) == str(action):

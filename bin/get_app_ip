@@ -1,0 +1,5 @@
+#!/bin/bash
+IP=$(cat /etc/tnsnames.ora | grep HOST | tr -s ' ' | cut -d ' ' -f8 | cut -d ')' -f1)
+echo "IP="${IP}
+
+exit 0

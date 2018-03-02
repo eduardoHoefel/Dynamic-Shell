@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DEVICE=$1
+
+DESTINY="config/asterisk_device"
+
+touch $DESTINY
+
+if ! [ -w $DESTINY ]; then
+	exit 1
+fi
+
+echo $DEVICE > $DESTINY
+
+bin/update_asterisk
+
+exit 0

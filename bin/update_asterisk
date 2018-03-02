@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DEVICE=$(bin/get_asterisk_device  | cut -d "=" -f2)
+DESTINY="/var/lib/asterisk/agi-bin/utils/utils.php"
+
+IP=$(bin/get_device_config ens160 | grep 'IP' | cut -d "=" -f2)
+
+sed -i "s/[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+/$IP/g" $DESTINY
+
+exit 0

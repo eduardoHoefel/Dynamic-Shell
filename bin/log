@@ -1,0 +1,13 @@
+#!/bin/bash
+
+IP=$(who am i | tr -s " " | cut -d " " -f5 | sed 's/(//' | sed 's/)//')
+
+if [ -z "$IP" ]; then
+	IP="console"
+fi
+
+TIME=$(date '+%Y%m%d %H:%M:%S')
+
+echo "[$IP][$TIME]: $@" >> log.txt
+
+exit 0

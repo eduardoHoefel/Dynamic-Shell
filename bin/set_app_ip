@@ -1,0 +1,22 @@
+#!/bin/bash
+
+DESTINY='/etc/tnsnames.ora'
+
+touch $DESTINY
+
+if ! [ -w $DESTINY ]; then
+        exit 1
+fi
+
+IP=$1
+
+result=$(curl $IP/rcx/api.php --data "action=checkRCX")
+
+if ! [ $result -eq 1 ]; then
+        exit 2
+fi
+
+sed -i "s/HOST.\+)(/HOST = $IP)(/" $DESTINY
+
+exit 0
+

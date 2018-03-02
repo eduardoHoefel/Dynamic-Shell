@@ -1,0 +1,9 @@
+#!/bin/bash
+
+FILE="config/asterisk_device"
+
+DEVICE=$(cat $FILE)
+
+echo "Device="$DEVICE
+
+exit 0

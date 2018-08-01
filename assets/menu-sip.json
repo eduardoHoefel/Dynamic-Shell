@@ -29,6 +29,11 @@
            "type": "FORM",
            "form": "tracert"
           }, {
+           "hotkey": 5,
+           "title": "Telnet",
+           "type": "FORM",
+           "form": "check_connection"
+          }, {
            "hotkey": 0,
            "title": "Return",
            "type": "RETURN"

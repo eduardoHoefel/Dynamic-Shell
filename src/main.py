@@ -13,28 +13,38 @@ action = 0
 open = True
 
 def init():
-    windows_utils.init()
+    try:
+        windows_utils.init()
+    except Exception as inst:
+        v = inst.args[0]
+        print('Window size exception. \nSize is %dx%d.\nMinimum size is %dx%d.' % (v['width'], v['height'], v['min_width'], v['min_height']))
+        raise
 
 # Main program
 def main():
-    init()
-    global open
-    while True:
-        update()
-        render()
+    try:
+        init()
+        global open
+        while True:
+            update()
+            render()
 
-        if not open:
-            break
+            if not open:
+                break
 
-        sleep(0.05)
-        get_input()
+            sleep(0.05)
+            get_input()
 
-    curses.endwin()
-    curses.curs_set(1)
-    curses.reset_shell_mode()
-    curses.echo()
-    os.system('clear')
-    exit()
+        curses.endwin()
+        curses.curs_set(1)
+        curses.reset_shell_mode()
+        curses.echo()
+        os.system('clear')
+        exit()
+    except:
+        print('Exception found.\n Exiting...')
+        raise
+        exit()
 
 def get_input():
     global action

@@ -1,94 +1,123 @@
 {
-	"title": "Menu",
-	"options": [
-		{
-			"hotkey": 1,
-			"title": "Network",
-			"type": "MENU",
-			"menu": {
-				"title": "Menu -> Network",
-				"options": [
-					{
-						"hotkey": 1,
-						"title": "Set DNS",
-						"type": "FORM",
-						"form": "set_dns"
-					}, {
-						"hotkey": 2,
-						"title": "Configure Interface",
-						"type": "FORM",
-						"form": "set_device_config"
-					}, {
-						"hotkey": 3,
-						"title": "Ping",
-						"type": "FORM",
-						"form": "ping"
-					}, {
-						"hotkey": 4,
-						"title": "Trace route",
-						"type": "FORM",
-						"form": "tracert"
-					}, {
-						"hotkey": 0,
-						"title": "Return",
-						"type": "RETURN"
-					}
-				]
-			}
-		}, {
-			"hotkey": 2,
-			"title": "Services",
-			"type": "MENU",
-			"menu": {
-				"title": "Menu -> Services",
-				"options": [
-					{
-						"hotkey": 1,
-						"title": "Restart Service",
-						"type": "FORM",
-						"form": "restart_service"
-					}, {
-						"hotkey": 2,
-						"title": "Stop Service",
-						"type": "FORM",
-						"form": "stop_service"
-					}, {
-						"hotkey": 0,
-						"title": "Return",
-						"type": "RETURN"
-					}
-				]
-			}
-		}, {
-			"hotkey": 3,
-			"title": "System",
-			"type": "MENU",
-			"menu": {
-				"title": "Menu -> System",
-				"options": [
-					{
-						"hotkey": 1,
-						"title": "Shut Down",
-						"type": "COMMAND",
-						"command": "shutdown",
-						"confirm": "Are you sure you want to shut down?"
-					}, {
-						"hotkey": 2,
-						"title": "Reboot",
-						"type": "COMMAND",
-						"command": "reboot",
-						"confirm": "Are you sure you want to reboot?"
-					}, {
-						"hotkey": 0,
-						"title": "Return",
-						"type": "RETURN"
-					}
-				]
-			}
-		}, {
-			"hotkey": 0,
-			"title": "Exit",
-			"type": "RETURN"
-		}
-	]
+  "title": "Menu",
+  "options": [
+    {
+      "hotkey": 1,
+      "title": "Network",
+      "type": "MENU",
+      "menu": {
+        "title": "Menu -> Network",
+        "options": [
+          {
+            "hotkey": 1,
+            "title": "Set DNS",
+            "type": "FORM",
+            "form": "set_dns"
+          }, {
+            "hotkey": 2,
+            "title": "Configure Interface",
+            "type": "FORM",
+            "form": "set_device_config"
+          }, {
+            "hotkey": 3,
+            "title": "Ping",
+            "type": "FORM",
+            "form": "ping"
+          }, {
+           "hotkey": 4,
+           "title": "Trace route",
+           "type": "FORM",
+           "form": "tracert"
+          }, {
+           "hotkey": 5,
+           "title": "Telnet",
+           "type": "FORM",
+           "form": "check_connection"
+          }, {
+           "hotkey": 0,
+           "title": "Return",
+           "type": "RETURN"
+          }
+        ]
+      }
+    }, {
+      "hotkey": 2,
+      "title": "Application",
+      "type": "MENU",
+      "menu": {
+        "title": "Menu -> Application",
+        "options": [
+          {
+            "hotkey": 1,
+            "title": "Set Web Application IP",
+            "type": "FORM",
+            "form": "set_app_ip"
+          }, {
+            "hotkey": 2,
+            "title": "Set Voice Manager Device",
+            "type": "FORM",
+            "form": "set_asterisk_device"
+          }, {
+           "hotkey": 0,
+           "title": "Return",
+           "type": "RETURN"
+          }
+        ]
+      }
+    }, {
+      "hotkey": 3,
+      "title": "Services",
+      "type": "MENU",
+      "menu": {
+      	"title": "Menu -> Services",
+      	"options": [
+      		{
+      			"hotkey": 1,
+      			"title": "Restart Service",
+      			"type": "FORM",
+      			"form": "restart_service"
+      		}, {
+      			"hotkey": 2,
+      			"title": "Stop Service",
+      			"type": "FORM",
+      			"form": "stop_service"
+      		}, {
+      			"hotkey": 0,
+      			"title": "Return",
+      			"type": "RETURN"
+      		}
+      	]
+      }
+    }, {
+      "hotkey": 4,
+      "title": "System",
+      "type": "MENU",
+      "menu": {
+      	"title": "Menu -> System",
+      	"options": [
+      		{
+      			"hotkey": 1,
+      			"title": "Shut Down",
+      			"type": "COMMAND",
+      			"command": "shutdown",
+      			"confirm": "Are you sure you want to shut down?"
+      		}, {
+      			"hotkey": 2,
+      			"title": "Reboot",
+      			"type": "COMMAND",
+      			"command": "reboot",
+      			"confirm": "Are you sure you want to reboot?"
+      		}, {
+      			"hotkey": 0,
+      			"title": "Return",
+      			"type": "RETURN"
+      		}
+      	]
+      }
+    }, {
+      "hotkey": 0,
+      "title": "Exit",
+      "type": "RETURN"
+    }
+  ]
 }

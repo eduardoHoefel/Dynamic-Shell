@@ -87,6 +87,40 @@
         "command": "tracert_start_background"
     }
   },
+  "check_connection": {
+    "title": "Menu -> Network -> Telnet",
+    "type": "save_config",
+    "inputs": [
+      {
+        "name": "IP",
+        "type": "ip",
+        "required": 1
+      },
+      {
+	"name": "Port",
+	"type": "string",
+	"required": 1
+      },
+      {
+        "name": "Protocol",
+        "type": "select",
+        "required": 1,
+        "options": [
+			{
+				"name": "TCP",
+				"value": "tcp"
+			}, {
+				"name": "UDP",
+				"value": "udp"
+			}
+		]
+      }
+    ],
+    "messages": {
+      "0": "Success!",
+      "1": "Destination Unreachable!"
+    }
+  },
   "set_app_ip": {
     "title": "Menu -> Application -> Set Web Application IP",
     "type": "save_config",

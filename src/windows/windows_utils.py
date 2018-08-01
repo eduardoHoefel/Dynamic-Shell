@@ -404,9 +404,17 @@ def remove_popup(popup):
     del popup
 
 def init():
+
+    min_width = 75
+    min_height = 35
+
     global windows, active_window
     screen = curses.initscr() #initializes a new window for capturing key presses
     height, width = screen.getmaxyx()
+
+    if height < min_height or width < min_width:
+        raise Exception({'height': height, 'width': width, 'min_height': min_height, 'min_width': min_width})
+        
     windows_configs = [
             { 'type': WINDOW_HEADER, 'height': trunc(height/3), 'width': width, 'pos_y': 0, 'pos_x': 0 },
             { 'type': WINDOW_MENU, 'height': ceil(height*2/3), 'width': trunc(width/2), 'pos_y': ceil(height/3)-1, 'pos_x': 0 },

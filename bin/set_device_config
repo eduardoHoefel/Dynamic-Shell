@@ -5,6 +5,7 @@ NAME=$2
 IPADDR=$3
 NETMASK=$4
 GATEWAY=$5
+ONBOOT=1
 
 DESTINY="/etc/sysconfig/network-scripts/ifcfg-"$1
 
@@ -20,16 +21,15 @@ else
 	ONBOOT='no'
 fi
 
-
-echo 'DEVICE='$DEVICE > $DESTINY
-echo 'TYPE=Ethernet' >> $DESTINY
-echo 'NAME="'$NAME'"' >> $DESTINY
-echo 'ONBOOT=yes' >> $DESTINY
-
-echo 'NETMASK='$NETMASK >> $DESTINY
-echo 'IPADDR='$IPADDR >> $DESTINY
-echo 'GATEWAY='$GATEWAY >> $DESTINY
-
-echo 'BOOTPROTO=static' >> $DESTINY
+cat << EOF > $DESTINY
+DEVICE=$DEVICE
+TYPE=Ethernet
+NAME="$NAME"
+ONBOOT=$ONBOOT
+NETMASK=$NETMASK
+IPADDR=$IPADDR
+GATEWAY=$GATEWAY
+BOOTPROTO=static
+EOF
 
 exit 0
